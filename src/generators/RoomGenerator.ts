@@ -8,17 +8,17 @@ interface RoomConfig {
   minSize: number;
   maxSize: number;
   priority: number;
-  preferredX: 'front' | 'back' | 'center' | 'any';
+  preferredY: 'front' | 'back' | 'center' | 'any';  // front = top (bow), back = bottom (stern)
   preferredDeck: 'top' | 'bottom' | 'middle' | 'any';
 }
 
 const ROOM_CONFIGS: RoomConfig[] = [
-  { type: CellType.BRIDGE, name: 'Bridge', minSize: 4, maxSize: 8, priority: 1, preferredX: 'front', preferredDeck: 'top' },
-  { type: CellType.ENGINEERING, name: 'Engineering', minSize: 6, maxSize: 12, priority: 2, preferredX: 'back', preferredDeck: 'bottom' },
-  { type: CellType.CARGO, name: 'Cargo Bay', minSize: 8, maxSize: 16, priority: 3, preferredX: 'center', preferredDeck: 'bottom' },
-  { type: CellType.MEDBAY, name: 'Medbay', minSize: 3, maxSize: 6, priority: 4, preferredX: 'center', preferredDeck: 'middle' },
-  { type: CellType.QUARTERS, name: 'Crew Quarters', minSize: 4, maxSize: 8, priority: 5, preferredX: 'center', preferredDeck: 'middle' },
-  { type: CellType.AIRLOCK, name: 'Airlock', minSize: 2, maxSize: 3, priority: 6, preferredX: 'any', preferredDeck: 'any' },
+  { type: CellType.BRIDGE, name: 'Bridge', minSize: 4, maxSize: 8, priority: 1, preferredY: 'front', preferredDeck: 'top' },
+  { type: CellType.ENGINEERING, name: 'Engineering', minSize: 6, maxSize: 12, priority: 2, preferredY: 'back', preferredDeck: 'bottom' },
+  { type: CellType.CARGO, name: 'Cargo Bay', minSize: 8, maxSize: 16, priority: 3, preferredY: 'center', preferredDeck: 'bottom' },
+  { type: CellType.MEDBAY, name: 'Medbay', minSize: 3, maxSize: 6, priority: 4, preferredY: 'center', preferredDeck: 'middle' },
+  { type: CellType.QUARTERS, name: 'Crew Quarters', minSize: 4, maxSize: 8, priority: 5, preferredY: 'center', preferredDeck: 'middle' },
+  { type: CellType.AIRLOCK, name: 'Airlock', minSize: 2, maxSize: 3, priority: 6, preferredY: 'any', preferredDeck: 'any' },
 ];
 
 export class RoomGenerator {
@@ -125,17 +125,17 @@ export class RoomGenerator {
   }
 
   private scorePosition(x: number, y: number, config: RoomConfig): number {
-    const normalizedX = x / this.width;
+    const normalizedY = y / this.height;  // 0 = top (bow), 1 = bottom (stern)
     const noise = this.noise.getNormalized(x, y, 0.2);
     
-    const xScoreMap = {
-      front: normalizedX,
-      back: 1 - normalizedX,
-      center: 1 - Math.abs(0.5 - normalizedX),
+    const yScoreMap = {
+      front: 1 - normalizedY,   // Higher score closer to top (bow)
+      back: normalizedY,         // Higher score closer to bottom (stern)
+      center: 1 - Math.abs(0.5 - normalizedY),
       any: noise,
     };
 
-    return xScoreMap[config.preferredX] + noise * 0.5;
+    return yScoreMap[config.preferredY] + noise * 0.5;
   }
 
   private fillRoom(

@@ -98,14 +98,14 @@ export class ShipGenerator {
     count: number
   ): Array<{ x: number; y: number }> {
     const positions: Array<{ x: number; y: number }> = [];
-    const centerY = this.height / 2;
+    const centerX = this.width / 2;
 
-    // Place turbolifts at strategic locations along the ship's spine
+    // Place turbolifts at strategic locations along the ship's vertical spine (bow at top)
     for (let i = 0; i < count; i++) {
-      const t = (i + 1) / (count + 1); // Distribute evenly along ship length
-      const x = Math.floor(this.width * 0.15 + (this.width * 0.7) * t);
-      const yOffset = Math.floor(noise.getNormalized(x, i * 100, 0.2) * 4 - 2);
-      const y = Math.floor(centerY + yOffset);
+      const t = (i + 1) / (count + 1); // Distribute evenly along ship length (top to bottom)
+      const y = Math.floor(this.height * 0.15 + (this.height * 0.7) * t);
+      const xOffset = Math.floor(noise.getNormalized(y, i * 100, 0.2) * 4 - 2);
+      const x = Math.floor(centerX + xOffset);
       
       positions.push({ x, y });
     }
@@ -125,20 +125,20 @@ export class ShipGenerator {
   }
 
   private addBulkheads(grid: Cell[][], noise: NoiseGenerator, deckNum: number): void {
-    // Add bulkheads at regular intervals along the ship
-    const bulkheadInterval = Math.floor(this.width / 5);
+    // Add bulkheads at regular intervals along the ship (horizontal sections, bow at top)
+    const bulkheadInterval = Math.floor(this.height / 5);
     
     for (let section = 1; section < 5; section++) {
-      const x = section * bulkheadInterval;
-      const jitter = Math.floor(noise.getNormalized(x, deckNum * 50, 0.3) * 3 - 1);
-      const bulkheadX = Math.max(2, Math.min(this.width - 3, x + jitter));
+      const y = section * bulkheadInterval;
+      const jitter = Math.floor(noise.getNormalized(y, deckNum * 50, 0.3) * 3 - 1);
+      const bulkheadY = Math.max(2, Math.min(this.height - 3, y + jitter));
       
-      // Draw vertical bulkhead
-      for (let y = 0; y < this.height; y++) {
-        const cell = grid[y][bulkheadX];
+      // Draw horizontal bulkhead
+      for (let x = 0; x < this.width; x++) {
+        const cell = grid[bulkheadY][x];
         // Only place bulkhead on floor/corridor cells, not rooms or turbolifts
         if (cell.type === CellType.FLOOR || cell.type === CellType.CORRIDOR) {
-          grid[y][bulkheadX] = { type: CellType.BULKHEAD };
+          grid[bulkheadY][x] = { type: CellType.BULKHEAD };
         }
       }
     }

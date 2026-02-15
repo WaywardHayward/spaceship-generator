@@ -41,14 +41,15 @@ export class HullGenerator {
     const nx = (x - centerX) / (this.width / 2);
     const ny = (y - centerY) / (this.height / 2);
 
-    // Base ellipse shape - elongated horizontally for ship-like appearance
-    const ellipseValue = (nx * nx) / 1.0 + (ny * ny) / 0.25;
+    // Base ellipse shape - elongated VERTICALLY for ship-like appearance (bow at top)
+    // ny controls vertical spread, nx controls horizontal
+    const ellipseValue = (nx * nx) / 0.25 + (ny * ny) / 1.0;
 
     // Add noise for organic variation
     const noiseValue = this.noise.getLayered(x, y, 3, 0.5, 0.1) * 0.3;
 
-    // Sharpen the front of the ship
-    const frontTaper = x > centerX ? Math.pow(nx, 2) * 0.3 : 0;
+    // Sharpen the front (top) of the ship - taper toward y=0 (bow at top)
+    const frontTaper = y < centerY ? Math.pow(ny, 2) * 0.3 : 0;
 
     return ellipseValue + noiseValue + frontTaper < 0.8;
   }

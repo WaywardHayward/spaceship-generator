@@ -4,7 +4,8 @@ import { ShipGenerator } from './generators';
 import { ShipDisplay } from './components';
 
 function generateShip(): Ship {
-  const generator = new ShipGenerator();
+  // Taller than wide for vertical orientation (bow at top)
+  const generator = new ShipGenerator(undefined, 40, 60);
   return generator.generate();
 }
 
