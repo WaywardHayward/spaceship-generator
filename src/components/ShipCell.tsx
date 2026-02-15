@@ -19,6 +19,8 @@ const CELL_CLASS_MAP: Record<CellType, string> = {
   [CellType.MEDBAY]: 'cell-medbay',
   [CellType.AIRLOCK]: 'cell-airlock',
   [CellType.CORRIDOR]: 'cell-corridor',
+  [CellType.TURBOLIFT]: 'cell-turbolift',
+  [CellType.BULKHEAD]: 'cell-bulkhead',
 };
 
 export function ShipCell({ cell }: Props) {

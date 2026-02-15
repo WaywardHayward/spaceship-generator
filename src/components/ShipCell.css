@@ -53,3 +53,15 @@
 .cell-corridor {
   background: #b2bec3;
 }
+
+.cell-turbolift {
+  background: #00cec9;
+  border: 2px solid #00b5b8;
+  border-radius: 50%;
+}
+
+.cell-bulkhead {
+  background: #636e72;
+  border-left: 2px solid #2d3436;
+  border-right: 2px solid #2d3436;
+}

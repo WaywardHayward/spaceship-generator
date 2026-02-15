@@ -11,6 +11,8 @@ export const CellType = {
   MEDBAY: 'medbay',
   AIRLOCK: 'airlock',
   CORRIDOR: 'corridor',
+  TURBOLIFT: 'turbolift',
+  BULKHEAD: 'bulkhead',
 } as const;
 
 export type CellType = typeof CellType[keyof typeof CellType];
@@ -18,6 +20,7 @@ export type CellType = typeof CellType[keyof typeof CellType];
 export interface Cell {
   type: CellType;
   roomId?: number;
+  deck?: number;
 }
 
 export interface Room {
@@ -25,13 +28,24 @@ export interface Room {
   type: CellType;
   name: string;
   cells: Array<{ x: number; y: number }>;
+  deck: number;
+}
+
+export interface Deck {
+  number: number;
+  name: string;
+  grid: Cell[][];
+  rooms: Room[];
 }
 
 export interface Ship {
   name: string;
   width: number;
   height: number;
-  grid: Cell[][];
+  grid: Cell[][];  // Legacy - kept for simple view
   rooms: Room[];
+  decks: Deck[];
+  turboliftPositions: Array<{ x: number; y: number }>;
   seed: number;
+  deckCount: number;
 }

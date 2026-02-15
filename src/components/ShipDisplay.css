@@ -22,7 +22,22 @@
 .seed {
   color: #888;
   font-family: monospace;
-  margin: 0 0 16px 0;
+  margin: 0 0 12px 0;
+}
+
+.ship-stats {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.stat {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  color: #ccc;
 }
 
 .regenerate-btn {
@@ -45,10 +60,75 @@
   transform: translateY(0);
 }
 
+.deck-selector {
+  background: #16213e;
+  padding: 16px 24px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.deck-selector h3 {
+  margin: 0 0 12px 0;
+  color: #ffd700;
+  font-size: 1rem;
+}
+
+.deck-buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.deck-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 16px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid transparent;
+  border-radius: 8px;
+  color: #ccc;
+  cursor: pointer;
+  transition: all 0.2s;
+  min-width: 90px;
+}
+
+.deck-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: #6c5ce7;
+}
+
+.deck-btn.active {
+  background: linear-gradient(135deg, #6c5ce7 0%, #0984e3 100%);
+  border-color: #ffd700;
+  color: white;
+}
+
+.deck-number {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.deck-name {
+  font-size: 0.7rem;
+  opacity: 0.8;
+}
+
 .ship-content {
   display: flex;
   gap: 24px;
   align-items: flex-start;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+.grid-container {
+  text-align: center;
+}
+
+.deck-title {
+  color: #00cec9;
+  margin: 0 0 12px 0;
+  font-size: 1.1rem;
 }
