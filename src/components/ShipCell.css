@@ -1,0 +1,55 @@
+.ship-cell {
+  width: 12px;
+  height: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+}
+
+.cell-empty {
+  background: transparent;
+  border: none;
+}
+
+.cell-hull {
+  background: #2d3436;
+}
+
+.cell-floor {
+  background: #636e72;
+}
+
+.cell-wall {
+  background: #2d3436;
+}
+
+.cell-door {
+  background: #e17055;
+}
+
+.cell-bridge {
+  background: #0984e3;
+}
+
+.cell-engineering {
+  background: #fdcb6e;
+}
+
+.cell-cargo {
+  background: #6c5ce7;
+}
+
+.cell-quarters {
+  background: #00b894;
+}
+
+.cell-medbay {
+  background: #e84393;
+}
+
+.cell-airlock {
+  background: #e74c3c;
+}
+
+.cell-corridor {
+  background: #b2bec3;
+}

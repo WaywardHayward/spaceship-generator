@@ -1,0 +1,34 @@
+.room-legend {
+  background: #16213e;
+  padding: 16px 24px;
+  border-radius: 8px;
+  color: #eee;
+  min-width: 200px;
+}
+
+.room-legend h3 {
+  margin: 0 0 12px 0;
+  font-size: 1.1rem;
+  color: #ffd700;
+}
+
+.room-legend ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.room-legend li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0;
+  font-size: 0.9rem;
+}
+
+.color-swatch {
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
